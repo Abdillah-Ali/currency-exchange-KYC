@@ -1,0 +1,231 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Bureau de Change Design System
+   Professional financial services aesthetic with trust-inspiring blues,
+   success greens, and currency gold accents
+*/
+
+@layer base {
+  :root {
+    /* Core backgrounds */
+    --background: 210 25% 97%;
+    --foreground: 215 28% 17%;
+
+    /* Card surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 17%;
+
+    /* Popover surfaces */
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 17%;
+
+    /* Primary - Deep Navy Blue (Trust & Authority) */
+    --primary: 217 71% 23%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Secondary - Soft Blue Gray */
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 215 28% 17%;
+
+    /* Muted elements */
+    --muted: 214 32% 91%;
+    --muted-foreground: 215 16% 47%;
+
+    /* Accent - Teal/Cyan for highlights */
+    --accent: 187 55% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Destructive - Clear Red for alerts */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Success - Green for availability/confirmations */
+    --success: 142 71% 35%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Amber for currency/attention */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Currency Gold accent */
+    --currency: 43 96% 56%;
+    --currency-foreground: 215 28% 17%;
+
+    /* Borders and inputs */
+    --border: 214 32% 85%;
+    --input: 214 32% 91%;
+    --ring: 217 71% 23%;
+
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-background: 217 71% 18%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 187 55% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 71% 28%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 60% 28%;
+    --sidebar-ring: 187 55% 52%;
+
+    /* Custom gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 71% 23%), hsl(217 71% 35%));
+    --gradient-success: linear-gradient(135deg, hsl(142 71% 35%), hsl(142 71% 45%));
+    --gradient-warning: linear-gradient(135deg, hsl(38 92% 50%), hsl(43 96% 56%));
+    --gradient-accent: linear-gradient(135deg, hsl(187 55% 42%), hsl(187 55% 52%));
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(215 28% 17% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(215 28% 17% / 0.1), 0 2px 4px -2px hsl(215 28% 17% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(215 28% 17% / 0.1), 0 4px 6px -4px hsl(215 28% 17% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(215 28% 17% / 0.1), 0 8px 10px -6px hsl(215 28% 17% / 0.1);
+  }
+
+  .dark {
+    --background: 217 33% 10%;
+    --foreground: 210 40% 98%;
+
+    --card: 217 33% 14%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 217 33% 14%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 187 55% 52%;
+    --primary-foreground: 217 33% 10%;
+
+    --secondary: 217 33% 20%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 20%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 187 55% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 55%;
+    --warning-foreground: 0 0% 0%;
+
+    --currency: 43 96% 56%;
+    --currency-foreground: 0 0% 0%;
+
+    --border: 217 33% 24%;
+    --input: 217 33% 20%;
+    --ring: 187 55% 52%;
+
+    --sidebar-background: 217 33% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 187 55% 52%;
+    --sidebar-primary-foreground: 217 33% 10%;
+    --sidebar-accent: 217 33% 16%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 20%;
+    --sidebar-ring: 187 55% 52%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  /* Queue Ticket styling */
+  .queue-ticket {
+    @apply relative bg-card rounded-xl border-2 border-dashed border-primary/30 p-6;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      hsl(var(--primary) / 0.02) 10px,
+      hsl(var(--primary) / 0.02) 20px
+    );
+  }
+
+  .queue-ticket::before {
+    content: '';
+    @apply absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-background border-2 border-primary/30;
+  }
+
+  .queue-ticket::after {
+    content: '';
+    @apply absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-background border-2 border-primary/30;
+  }
+
+  /* Status badges */
+  .status-available {
+    @apply bg-success/10 text-success border border-success/20;
+  }
+
+  .status-unavailable {
+    @apply bg-destructive/10 text-destructive border border-destructive/20;
+  }
+
+  .status-limited {
+    @apply bg-warning/10 text-warning border border-warning/20;
+  }
+
+  /* Currency card hover effect */
+  .currency-card {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+
+  /* Kiosk button styling */
+  .kiosk-btn {
+    @apply h-16 text-lg font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  /* Teller action button */
+  .teller-action {
+    @apply h-12 px-6 font-medium shadow-md hover:shadow-lg transition-all duration-200;
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    @apply bg-card/80 backdrop-blur-sm border border-border/50;
+  }
+
+  /* Pulse animation for queue number */
+  .pulse-number {
+    animation: pulse-scale 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-scale {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+}
+
+@layer utilities {
+  .shadow-soft {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-xl);
+  }
+}

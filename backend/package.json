@@ -1,0 +1,24 @@
+{
+    "name": "bdc-backend-system",
+    "version": "1.0.0",
+    "description": "Microservices-based backend for Bureau de Change",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js",
+        "db:init": "psql -f schema.sql"
+    },
+    "dependencies": {
+        "bcryptjs": "^3.0.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.3",
+        "pdfkit": "^0.14.0",
+        "pg": "^8.11.3",
+        "socket.io": "^4.7.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
+}
