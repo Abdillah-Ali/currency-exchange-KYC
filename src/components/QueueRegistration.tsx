@@ -8,7 +8,8 @@ import { ATMAmountInput } from '@/components/queue/ATMAmountInput';
 import { DocumentScanner } from '@/components/queue/DocumentScanner';
 import { ReceiptPDF } from '@/components/queue/ReceiptPDF';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, ArrowLeft, ArrowRight, Home } from 'lucide-react';
+import { CheckCircle, ArrowLeft, ArrowRight, Home, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 type Step =
   | 'welcome'
@@ -48,6 +49,7 @@ export function QueueRegistration() {
     amount: '',
   });
   const [queueEntry, setQueueEntry] = useState<QueueEntry | null>(null);
+  const [isQueueing, setIsQueueing] = useState(false);
 
   const selectedCurrency = formData.currencyCode ? getCurrencyByCode(formData.currencyCode as CurrencyCode) : null;
   const rate = selectedCurrency
@@ -60,6 +62,7 @@ export function QueueRegistration() {
   }, []);
 
   const handleConfirm = async () => {
+    setIsQueueing(true);
     try {
       const response = await fetch('/api/queue/join', {
         method: 'POST',
@@ -76,10 +79,12 @@ export function QueueRegistration() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to join queue');
+        const errData = await response.json();
+        throw new Error(errData.error || 'Failed to join queue');
       }
 
       const data = await response.json();
+      toast.success('Joined queue successfully');
 
       const customer: Customer = {
         id: `cust-${Date.now()}`,
@@ -109,9 +114,11 @@ export function QueueRegistration() {
 
       setQueueEntry(entry);
       setStep('printing');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Queue error:', error);
-      // We could add a toast here if we had the toast hook imported
+      toast.error(error.message || 'Connection failed. Please try again.');
+    } finally {
+      setIsQueueing(false);
     }
   };
 
@@ -246,9 +253,19 @@ export function QueueRegistration() {
             <Button
               className="flex-1 h-16 text-lg bg-success hover:bg-success/90"
               onClick={handleConfirm}
+              disabled={isQueueing}
             >
-              <CheckCircle className="h-5 w-5 mr-2" />
-              Confirm & Print
+              {isQueueing ? (
+                <>
+                  <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                  Processing...
+                </>
+              ) : (
+                <>
+                  <CheckCircle className="h-5 w-5 mr-2" />
+                  Confirm & Print
+                </>
+              )}
             </Button>
           </div>
         </div>
