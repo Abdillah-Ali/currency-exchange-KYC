@@ -3,6 +3,7 @@ import { QueueEntry } from '@/lib/types';
 import { format } from 'date-fns';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Button } from '@/components/ui/button';
 
 interface ReceiptPDFProps {
   entry: QueueEntry;
@@ -37,7 +38,7 @@ export function ReceiptPDF({ entry, onPrintComplete }: ReceiptPDFProps) {
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
         pdf.addImage(imgData, 'PNG', 5, 5, imgWidth, imgHeight);
-        
+
         // Auto-download the PDF
         pdf.save(`queue-ticket-${entry.queueNumber}.pdf`);
 
@@ -59,7 +60,24 @@ export function ReceiptPDF({ entry, onPrintComplete }: ReceiptPDFProps) {
       <div className="text-center mb-8">
         <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4" />
         <h2 className="text-2xl font-bold text-foreground">Generating Receipt...</h2>
-        <p className="text-muted-foreground">Your ticket will download automatically</p>
+        <p className="text-muted-foreground mb-4">Your ticket will download automatically</p>
+
+        <div className="flex flex-col gap-2">
+          <Button
+            variant="outline"
+            onClick={() => window.location.reload()}
+            className="w-full"
+          >
+            Try Again
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={onPrintComplete}
+            className="text-muted-foreground"
+          >
+            Continue without printing
+          </Button>
+        </div>
       </div>
 
       {/* Hidden receipt for PDF generation */}
